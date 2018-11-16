@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.spm.erp</groupId>
-    <artifactId>gateway-service</artifactId>
+    <artifactId>discovery-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>gateway-service</name>
+    <name>discovery-service</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
