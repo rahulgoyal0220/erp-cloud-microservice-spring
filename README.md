@@ -3,8 +3,8 @@
 1. Build the whole project once by doing mvn clean install at the root directory erp-cloud-microservice-spring/
 
 Start the modules in the below sequence:
-1. Config-service
-2. discovery-service
-3. authentication-service
-4. employee-service
-5. gateway-service
+1. Config-service - (Configuration server maintaing the configuration for all the modules)
+2. discovery-service - (Service registry/discovery) 
+3. authentication-service - (Authentication module)
+4. employee-service - (Employee- module)
+5. gateway-service - (API -gateway that will be used to route the request)
