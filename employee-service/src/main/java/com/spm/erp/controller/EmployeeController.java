@@ -19,7 +19,6 @@ import com.spm.erp.service.EmployeeService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/")
 public class EmployeeController {
 
     @Autowired
@@ -27,12 +26,12 @@ public class EmployeeController {
     @Autowired
     EmployeeService service;
 
-    @GetMapping("/employee")
+    @GetMapping
     public List<Employee> getEmployeeList() {
         return service.getAllEmployee();
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getEmployeeDetail(@PathVariable Integer id) {
         CustomResponse response = service.getEmployeeDetail(id);
 
@@ -43,7 +42,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/employee")
+    @PostMapping
     private ResponseEntity<Void> addEmployee(@RequestBody Employee employee) {
         try {
             service.create(employee);
@@ -53,7 +52,7 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/employee/{id}")
+    @PutMapping("/{id}")
     private ResponseEntity<Void> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         try {
             service.updateEmployee(id, employee);
@@ -64,7 +63,7 @@ public class EmployeeController {
     }
 
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/{id}")
     private ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
         try {
             service.deleteEmployee(id);
