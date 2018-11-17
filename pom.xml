@@ -12,8 +12,8 @@
 		<module>employee-service</module>
 		<module>authentication-service</module>
 		<module>gateway-service</module>
-		<!--<module>payroll-service</module>
-		<module>training-service</module>-->
+		<module>payroll-service</module>
+		<module>training-service</module>
 	</modules>
 	
 </project>

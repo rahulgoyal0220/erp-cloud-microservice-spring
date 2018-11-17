@@ -15,3 +15,6 @@ eureka:
       employee-service:
         path: /employee/**
         serviceId: EMPLOYEE-SERVICE
+      payroll-service:
+        path: /payrolls/**
+        serviceId: PAYROLL-SERVICE
