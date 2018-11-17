@@ -15,7 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomResponse<T> {
 
-    private Boolean success;
+    public CustomResponse(boolean b, String string, Object object) {
+		// TODO Auto-generated constructor stub
+	}
+
+	private Boolean success;
 
     private String message;
 

@@ -61,6 +61,16 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    
+    @PutMapping("/{id}/changePassword")
+    private ResponseEntity<Void> updateEmployeePassword(@PathVariable Integer id, @RequestBody Employee employee) {
+        try {
+            service.updateEmployeePassword(id, employee);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
 
     @DeleteMapping("/{id}")

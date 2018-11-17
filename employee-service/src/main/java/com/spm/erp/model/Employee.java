@@ -22,7 +22,6 @@ public class Employee implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
    
     @Column(name = "first_name")
     private String firstName;
@@ -50,4 +49,8 @@ public class Employee implements Serializable {
     
     @Column(name = "job_id")
     private Integer jobId;
+    
+    @Column(name = "password")
+    private String password;
+
 }
