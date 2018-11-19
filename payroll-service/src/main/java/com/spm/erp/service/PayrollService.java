@@ -3,6 +3,7 @@ package com.spm.erp.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.spm.erp.model.Employee;
 import com.spm.erp.model.Payroll;
 
 import net.sf.jasperreports.engine.JasperPrint;
@@ -19,6 +20,6 @@ public interface PayrollService {
 	
 	void deletePayroll(Integer id);
 	
-	byte[] generatePayrollReport(Payroll payroll);
+	byte[] generatePayrollReport(Payroll payroll, Employee employee);
 	
 }

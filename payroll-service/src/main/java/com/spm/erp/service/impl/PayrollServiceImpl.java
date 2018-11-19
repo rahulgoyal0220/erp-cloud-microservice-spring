@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spm.erp.exception.AppException;
+import com.spm.erp.model.Employee;
 import com.spm.erp.model.Payroll;
+import com.spm.erp.model.PayrollReport;
 import com.spm.erp.repository.PayrollRepository;
 import com.spm.erp.service.PayrollService;
 import com.spm.erp.util.BeanUtil;
@@ -81,14 +83,22 @@ public class PayrollServiceImpl implements PayrollService {
 	}
 
 	@Override
-	public byte[] generatePayrollReport(Payroll payroll) {
+	public byte[] generatePayrollReport(Payroll payroll, Employee employee) {
 		byte[] bytes = null;
 		Map<String, Object> param = new HashMap<>();
-		List<Payroll> tableData = new ArrayList<>();
+		PayrollReport reportFields = new PayrollReport.Builder().setAllowances(payroll.getAllowances())
+				.setDeductions(payroll.getDeductions()).setEmployeefirstName(employee.getFirstName())
+				.setEmployeeId(payroll.getEmployeeId()).setEmployeelastName(employee.getLastName())
+				.setEndDate(payroll.getEndDate()).setGrossPay(payroll.getGrossPay())
+				.setHoursWorked(payroll.getHoursWorked()).setId(payroll.getId()).setNetPay(payroll.getNetPay())
+				.setRatePerHour(payroll.getRatePerHour()).setStartDate(payroll.getStartDate()).setTax(payroll.getTax())
+				.setEmail(employee.getEmail())
+				.build();
+		List<PayrollReport> tableData = new ArrayList<>();
 		try {
-			InputStream jasperStream = getClass().getClassLoader().getResourceAsStream("Payroll.jrxml");
+			InputStream jasperStream = getClass().getClassLoader().getResourceAsStream("reports/Payroll.jrxml");
 			JasperDesign design = JRXmlLoader.load(jasperStream);
-			tableData.add(payroll);
+			tableData.add(reportFields);
 
 			JRDataSource jrDataSource = new JRBeanCollectionDataSource(tableData);
 
