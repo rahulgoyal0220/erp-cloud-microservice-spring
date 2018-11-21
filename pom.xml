@@ -14,6 +14,7 @@
 		<module>gateway-service</module>
 		<module>payroll-service</module>
 		<module>training-service</module>
+		<module>job-service</module>
 	</modules>
 	
 </project>
