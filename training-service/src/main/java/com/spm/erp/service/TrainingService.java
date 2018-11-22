@@ -10,12 +10,12 @@ public interface TrainingService {
 	
 	List<Training> fetchAllTrainings();
 	
-	Optional<Training> findTrainingById(Long trainingId);
+	Optional<Training> findTrainingById(Integer trainingId);
 	
 	CustomResponse insertTraining(Training training);
 	
-	CustomResponse updateTraining(Training training, Long trainingId);
+	CustomResponse updateTraining(Training training, Integer trainingId);
 	
-	void deleteTraining(Long trainingId);
+	void deleteTraining(Integer trainingId);
 
 }

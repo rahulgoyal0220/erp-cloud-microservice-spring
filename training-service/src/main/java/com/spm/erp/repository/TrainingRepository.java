@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.spm.erp.model.Training;
 
 @Repository
-public interface TrainingRepository extends JpaRepository<Training, Long> {	
+public interface TrainingRepository extends JpaRepository<Training, Integer> {	
 	
 	Boolean existsByTitle(String title);
 
