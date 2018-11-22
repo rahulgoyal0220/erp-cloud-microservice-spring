@@ -25,7 +25,7 @@ public class TrainingServiceImpl implements TrainingService {
 	}
 
 	@Override
-	public Optional<Training> findTrainingById(Long trainingId) {
+	public Optional<Training> findTrainingById(Integer trainingId) {
 		return trainingRepo.findById(trainingId);
 	}
 
@@ -44,7 +44,7 @@ public class TrainingServiceImpl implements TrainingService {
 	}
 
 	@Override
-	public CustomResponse updateTraining(Training training, Long trainingId) {
+	public CustomResponse updateTraining(Training training, Integer trainingId) {
 		Optional<Training> trainingOptional = trainingRepo.findById(trainingId);
 		if (!trainingOptional.isPresent())
 			return new CustomResponse(false, "No training found by ID: " + trainingId);
@@ -62,7 +62,7 @@ public class TrainingServiceImpl implements TrainingService {
 	}
 
 	@Override
-	public void deleteTraining(Long trainingId) {
+	public void deleteTraining(Integer trainingId) {
 		try {
 			trainingRepo.deleteById(trainingId);
 		} catch (Exception e) {

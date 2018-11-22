@@ -32,14 +32,14 @@ public class TrainingController {
 	}
 
 	@GetMapping("/training/{training_id}")
-	public ResponseEntity<?> getTrainingById(@PathVariable("training_id") Long id) {
+	public ResponseEntity<?> getTrainingById(@PathVariable("training_id") Integer id) {
 		Optional<Training> training = trainingService.findTrainingById(id);
 		return ResponseEntity.ok(training.isPresent() ? training.get()
 				: new CustomResponse(Boolean.FALSE, "No training found by ID: " + id));
 	}
 
 	@DeleteMapping("/training/{training_id}")
-	public ResponseEntity<?> deleteTraining(@PathVariable("training_id") Long id) {
+	public ResponseEntity<?> deleteTraining(@PathVariable("training_id") Integer id) {
 		Optional<Training> training = trainingService.findTrainingById(id);
 		if (!training.isPresent()) {
 			return ResponseEntity.ok(new CustomResponse(Boolean.FALSE, "No training found with id:" + id));
@@ -55,7 +55,7 @@ public class TrainingController {
 	}
 
 	@PutMapping("/training/{training_id}")
-	public ResponseEntity<?> updatePayroll(@PathVariable("training_id") Long id,@RequestBody Training training) {
+	public ResponseEntity<?> updatePayroll(@PathVariable("training_id") Integer id,@RequestBody Training training) {
 		CustomResponse response= trainingService.updateTraining(training,id);
 		return ResponseEntity.ok(response);
 	}
