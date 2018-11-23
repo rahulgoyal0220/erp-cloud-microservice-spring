@@ -39,14 +39,15 @@ public class AuthenticationFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
+        if (!request.getRequestURI().contains("/signin")) {
+            String bearerToken = request.getHeader("Authorization");
 
-        String bearerToken = request.getHeader("Authorization");
+            ResponseEntity<CustomResponse> response = authService.validateToken(bearerToken);
 
-        ResponseEntity<CustomResponse> response = authService.validateToken(bearerToken);
-
-        if (response.getBody().getMessage().equalsIgnoreCase("Unauthorized")) {
-            context.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
-            context.setSendZuulResponse(false);
+            if (response.getBody().getMessage().equalsIgnoreCase("Unauthorized")) {
+                context.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
+                context.setSendZuulResponse(false);
+            }
         }
         return null;
     }
