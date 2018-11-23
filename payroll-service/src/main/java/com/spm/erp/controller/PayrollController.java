@@ -1,35 +1,18 @@
 package com.spm.erp.controller;
 
-import java.io.OutputStream;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.spm.erp.model.CustomResponse;
 import com.spm.erp.model.Employee;
 import com.spm.erp.model.Payroll;
-import com.spm.erp.security.JwtAuthenticationResponse;
 import com.spm.erp.service.EmployeeService;
 import com.spm.erp.service.PayrollService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/payrolls")
 public class PayrollController {
 
 	@Autowired

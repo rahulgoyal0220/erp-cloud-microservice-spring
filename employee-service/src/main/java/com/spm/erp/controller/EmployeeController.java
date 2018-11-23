@@ -16,9 +16,11 @@ import com.spm.erp.model.Employee;
 import com.spm.erp.repository.EmployeeRepository;
 import com.spm.erp.service.EmployeeService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     @Autowired
@@ -43,7 +45,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    private ResponseEntity<Void> addEmployee(@RequestBody Employee employee) {
+    private ResponseEntity<Void> addEmployee(@Valid @RequestBody Employee employee) {
         try {
             service.create(employee);
         } catch (Exception e) {
@@ -61,15 +63,15 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    
+
     @PutMapping("/{id}/changePassword")
-    private ResponseEntity<Void> updateEmployeePassword(@PathVariable Integer id, @RequestBody Employee employee) {
+    private ResponseEntity<Void> changePassword(@PathVariable Integer id, @RequestBody Employee employee) {
         try {
             service.updateEmployeePassword(id, employee);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

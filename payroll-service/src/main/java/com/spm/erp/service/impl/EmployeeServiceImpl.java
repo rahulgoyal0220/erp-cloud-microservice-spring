@@ -11,7 +11,6 @@ import com.spm.erp.service.EmployeeService;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-	
 	@Autowired
 	RestTemplate restTemplate;
 	

@@ -20,7 +20,6 @@ import com.spm.erp.model.Training;
 import com.spm.erp.service.TrainingService;
 
 @RestController
-@RequestMapping("/trainings")
 public class TrainingController {
 
 	@Autowired

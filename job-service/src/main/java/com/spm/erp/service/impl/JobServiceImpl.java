@@ -8,7 +8,7 @@ import com.spm.erp.exception.AppException;
 import com.spm.erp.model.Job;
 import com.spm.erp.repository.JobRepository;
 import com.spm.erp.service.JobService;
-import com.spm.util.BeanUtil;
+import com.spm.erp.util.BeanUtil;
 
 import java.util.List;
 import java.util.Optional;

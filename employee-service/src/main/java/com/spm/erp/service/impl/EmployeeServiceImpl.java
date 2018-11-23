@@ -2,6 +2,7 @@ package com.spm.erp.service.impl;
 
 import com.spm.erp.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.spm.erp.exception.CustomException;
 import com.spm.erp.model.Employee;
@@ -17,6 +18,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public List<Employee> getAllEmployee() {
@@ -38,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public void create(Employee employee) {
 		if (Util.validateEmail(employee)) {
-			employee.setPassword(Util.createPassword());
+			employee.setPassword(passwordEncoder.encode(Util.createPassword()));
 			employeeRepository.save(employee);
 			Util.sendEmail(employee, "Account created",
 					"Hello " + employee.getFirstName()

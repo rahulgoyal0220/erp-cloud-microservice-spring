@@ -20,7 +20,6 @@ import com.spm.erp.model.Job;
 import com.spm.erp.service.JobService;
 
 @RestController
-@RequestMapping("/jobs")
 public class JobController {
 	
 	@Autowired

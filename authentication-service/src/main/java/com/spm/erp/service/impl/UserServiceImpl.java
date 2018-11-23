@@ -1,32 +1,18 @@
 package com.spm.erp.service.impl;
 
-import com.spm.erp.exception.AppException;
-import com.spm.erp.model.*;
-import com.spm.erp.repository.RoleRepository;
-import com.spm.erp.repository.UserRepository;
+import com.spm.erp.model.CustomResponse;
+import com.spm.erp.model.Login;
 import com.spm.erp.security.JwtTokenProvider;
 import com.spm.erp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
+    CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -35,38 +21,21 @@ public class UserServiceImpl implements UserService {
     JwtTokenProvider tokenProvider;
 
     @Override
-    public CustomResponse registerUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            return new CustomResponse(false, "Username is already taken!");
-        }
-
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return new CustomResponse(false, "Email Address already in use!");
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new AppException("User Role not set."));
-
-        user.setRoles(Collections.singleton(userRole));
-        try {
-            userRepository.save(user);
-            return new CustomResponse(true, "User registered successfully");
-        } catch (Exception ex) {
-            throw new AppException("User Role not set.");
+    public CustomResponse validateToken(String token) {
+        System.out.println(token);
+        if (tokenProvider.validateToken(token)) {
+            return new CustomResponse(true, "Success");
+        } else {
+            return new CustomResponse(false, "Unauthorized");
         }
     }
 
     @Override
     public String authenticateUser(Login login) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
+        String email = customUserDetailsService.loadUserByUsername(login.getUsername());
+        String jwt = tokenProvider.generateToken(email);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.generateToken(authentication);
         return jwt;
     }
 }
