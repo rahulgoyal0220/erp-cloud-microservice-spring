@@ -46,13 +46,8 @@ public class EmployeeController {
 
     @GetMapping("/{id}/reportee")
     public ResponseEntity<?> getEmployeeReportee(@PathVariable Integer id) {
-        CustomResponse response = service.getEmployeeDetail(id);
-
-        if (response.getSuccess()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(response);
-        }
+        List<Employee> response = service.getReportees(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping

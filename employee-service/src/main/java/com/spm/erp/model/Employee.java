@@ -59,6 +59,9 @@ public class Employee implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "manager_id")
+    private Integer managerId;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "employee_id"),
