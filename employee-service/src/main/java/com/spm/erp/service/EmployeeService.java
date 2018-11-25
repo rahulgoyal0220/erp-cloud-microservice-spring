@@ -12,13 +12,13 @@ public interface EmployeeService {
 
     CustomResponse<Employee> getEmployeeDetail(Integer id);
 
-    void create(Employee employee);
+    CustomResponse<Employee> create(Employee employee, List<Employee> employees);
 
-    void deleteEmployee(Integer id);
+    CustomResponse<Employee> deleteEmployee(Integer id);
 
-    void updateEmployee(Integer id, Employee employee);
+    CustomResponse<Employee> updateEmployee(Integer id, Employee employee);
 
-    void updateEmployeePassword(Integer id, Employee employee);
+    CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee);
 
     List<Employee> getReportees(Integer managerId);
 

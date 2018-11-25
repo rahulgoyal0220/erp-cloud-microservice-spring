@@ -37,10 +37,11 @@ public class EmployeeController {
     public ResponseEntity<?> getEmployeeDetail(@PathVariable Integer id) {
         CustomResponse response = service.getEmployeeDetail(id);
 
+        System.out.println("---------------------------"+response.getMessage());
         if (response.getSuccess()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        } else {
             return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response.getMessage());
         }
     }
 
@@ -49,15 +50,15 @@ public class EmployeeController {
         List<Employee> response = service.getReportees(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
+    
     @PostMapping
-    private ResponseEntity<Void> addEmployee(@Valid @RequestBody Employee employee) {
-        try {
-            service.create(employee);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    private ResponseEntity<?> addEmployee(@Valid @RequestBody Employee employee) {   
+    CustomResponse response =  service.create(employee, service.getAllEmployee());
+    if (response.getSuccess()) {
+        return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
+    } else {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+    }
     }
 
     @PutMapping("/{id}")
@@ -82,12 +83,13 @@ public class EmployeeController {
 
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
-        try {
-            service.deleteEmployee(id);
-        } catch (Exception e) {
-            e.printStackTrace();
+    private ResponseEntity<?> deleteEmployee(@PathVariable Integer id) {
+        
+    	CustomResponse response  = service.deleteEmployee(id);       
+    	if (response.getSuccess()) {
+            return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

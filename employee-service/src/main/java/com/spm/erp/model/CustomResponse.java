@@ -24,4 +24,6 @@ public class CustomResponse<T> {
     private String message;
 
     private T response;
+    
+   
 }

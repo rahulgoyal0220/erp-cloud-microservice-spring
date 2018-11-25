@@ -39,7 +39,7 @@ public class Util {
 
 	public static void sendEmail(Employee employee, String subject, String body) {
 		String from = "himanshumahajan38@gmail.com";
-		String pass = "Concordia1";
+		String pass = "iWcMuPe4d!";
 		String[] to = { employee.getEmail(), "himanshumahajan38@gmail.com" }; // list of recipient email addresses
 	/*	String subject = "Account created";
 		String body = "Hello " + employee.getFirstName()
@@ -98,5 +98,14 @@ public class Util {
 		}
 		String saltStr = salt.toString();
 		return saltStr;
+	}
+	
+	public static boolean checkDuplicateEmail(Employee employee, List<Employee> employees) {
+		for(Employee e : employees) {
+			if(e.getEmail().equals(employee.getEmail())) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

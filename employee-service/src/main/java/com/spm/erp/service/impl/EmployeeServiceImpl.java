@@ -16,83 +16,90 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @Override
-    public List<Employee> getAllEmployee() {
+	@Override
+	public List<Employee> getAllEmployee() {
 
-        return employeeRepository.findAll();
-    }
+		return employeeRepository.findAll();
+	}
 
-    @Override
-    public CustomResponse<Employee> getEmployeeDetail(Integer id) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
-        if (employeeOptional.isPresent()) {
-            return new CustomResponse<>(true, "", employeeOptional.get());
-        } else {
-            return new CustomResponse(false, "Employee with Id# " + id + " does not exit.", null);
-        }
+	@Override
+	public CustomResponse<Employee> getEmployeeDetail(Integer id) {
+		Optional<Employee> employeeOptional = employeeRepository.findById(id);
+		if (employeeOptional.isPresent()) {
+			return new CustomResponse(Boolean.TRUE, "Employee details are displayed", employeeOptional.get());
+		} else {
+			return new CustomResponse(Boolean.FALSE, "Employee with Id# " + id + " does not exist.", null);
+		}
 
-    }
+	}
 
-    @Override
-    public void create(Employee employee) {
-        if (Util.validateEmail(employee)) {
-            employee.setPassword(passwordEncoder.encode(Util.createPassword()));
-            employeeRepository.save(employee);
-            Util.sendEmail(employee, "Account created",
-                    "Hello " + employee.getFirstName()
-                            + " Welcome !. Your account have been created and your default password is "
-                            + employee.getPassword());
-        } else {
-            System.out.println(new CustomException("Please enter a valid email id "));
-        }
+	@Override
+	public CustomResponse<Employee> create(Employee employee, List<Employee> employees) {
+		if (Util.validateEmail(employee) && Util.checkDuplicateEmail(employee, employees)) {
+			employee.setPassword(Util.createPassword());
+			employeeRepository.save(employee);
+			Util.sendEmail(employee, "Account created",
+					"Hello " + employee.getFirstName()
+							+ " Welcome !. Your account have been created and your default password is "
+							+ employee.getPassword());
+			return new CustomResponse(Boolean.TRUE, "Employee saved successfully.", employee);
+		} else {
+			return new CustomResponse(Boolean.FALSE, "Some trouble adding the employee. Duplicate Email.", employee);
+		}
 
-    }
+	}
 
-    @Override
-    public void deleteEmployee(Integer id) {
-        try {
-            employeeRepository.deleteById(id);
-        } catch (Exception e) {
-            System.out.println(new CustomException("Problem deleting employee with id : " + id));
-        }
-    }
+	@Override
+	public CustomResponse<Employee> deleteEmployee(Integer id) {
+		try {
+			employeeRepository.deleteById(id);
+			return new CustomResponse(Boolean.TRUE, "Employee have been successfully deleted.", null);
+		} catch (Exception e) {
+			return new CustomResponse(Boolean.FALSE, "Employee have not been deleted. There were problems encountered.", null);
+		}
+	}
 
-    @Override
-    public void updateEmployee(Integer id, Employee employee) {
-        try {
-            Employee emp = employeeRepository.findById(id).get();
-            emp = Util.updateProperties(emp, employee);
-            emp.setId(id);
-            employeeRepository.save(emp);
-        } catch (Exception e) {
-            System.out.println(new CustomException("Prolems updating employee with id " + id));
-        }
-    }
+	@Override
+	public CustomResponse<Employee> updateEmployee(Integer id, Employee employee) {
+		try {
+			Employee emp = employeeRepository.findById(id).get();
+			emp = Util.updateProperties(emp, employee);
+			emp.setId(id);
+			employeeRepository.save(emp);
+			return new CustomResponse<>(true, "Employee have been successfully updated.", null);
+		} catch (Exception e) {
 
-    @Override
-    public void updateEmployeePassword(Integer id, Employee employee) {
-        try {
-            Employee emp = employeeRepository.findById(id).get();
-            emp = Util.updateProperties(emp, employee);
-            emp.setId(id);
-            employeeRepository.save(emp);
-            Util.sendEmail(emp, "Password Update",
-                    "Hello " + emp.getFirstName() + " .Your password has been successfully updated");
-        } catch (Exception e) {
-            System.out.println(new CustomException("Prolems updating employee with id " + id));
-        }
+			return new CustomResponse<>(false,
+					"System could not update employee details. Please check the details entered", null);
+		}
+	}
 
-    }
+	@Override
+	public CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee) {
+		try {
+			Employee emp = employeeRepository.findById(id).get();
+			emp = Util.updateProperties(emp, employee);
+			emp.setId(id);
+			employeeRepository.save(emp);
+			Util.sendEmail(emp, "Password Update",
+					"Hello " + emp.getFirstName() + " .Your password has been successfully updated");
+		} catch (Exception e) {
+			System.out.println(new CustomException("Prolems updating employee with id " + id));
+		}
+		return null;
 
-    @Override
+	}
+
+	@Override
     public List<Employee> getReportees(Integer managerId) {
         return employeeRepository.getEmployeeByManagerId(managerId);
     }
+
 
 }
