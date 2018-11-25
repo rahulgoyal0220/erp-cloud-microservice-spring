@@ -61,27 +61,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeRepository.deleteById(id);
 			return new CustomResponse(Boolean.TRUE, "Employee have been successfully deleted.", null);
 		} catch (Exception e) {
-			return new CustomResponse(Boolean.FALSE, "Employee have not been deleted. There were problems encountered.", null);
+			return new CustomResponse(Boolean.FALSE, "Employee have not been deleted. There were problems encountered.",
+					null);
 		}
 	}
 
 	@Override
-	public CustomResponse<Employee> updateEmployee(Integer id, Employee employee) {
-		try {
-			Employee emp = employeeRepository.findById(id).get();
-			emp = Util.updateProperties(emp, employee);
-			emp.setId(id);
-			employeeRepository.save(emp);
-			return new CustomResponse<>(true, "Employee have been successfully updated.", null);
-		} catch (Exception e) {
+	public CustomResponse<Employee> updateEmployee(Integer id, Employee employee, List<Employee> employees) {
+		if (Util.checkDuplicateEmail(employee, employees)) {
+			try {
+				Employee emp = employeeRepository.findById(id).get();
+				emp = Util.updateProperties(emp, employee);
+				emp.setId(id);
+				employeeRepository.save(emp);
+				return new CustomResponse(Boolean.TRUE, "Employee have been successfully updated.", null);
+			} catch (Exception e) {
 
-			return new CustomResponse<>(false,
-					"System could not update employee details. Please check the details entered", null);
+				return new CustomResponse(Boolean.FALSE,
+						"System could not update employee details. Some error occurred.", null);
+			}
+		} else {
+			return new CustomResponse(Boolean.FALSE, "Cannot update the employee. Email is duplicate.", null);
 		}
+
 	}
 
 	@Override
-	 public CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee) {
+	public CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee) {
 		try {
 			Employee emp = employeeRepository.findById(id).get();
 			emp = Util.updateProperties(emp, employee);
@@ -89,17 +95,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employeeRepository.save(emp);
 			Util.sendEmail(emp, "Password Update",
 					"Hello " + emp.getFirstName() + " .Your password has been successfully updated");
+			return new CustomResponse(Boolean.TRUE, "Employee Password have been successfully updated.", null);
 		} catch (Exception e) {
-			System.out.println(new CustomException("Prolems updating employee with id " + id));
+			return new CustomResponse(Boolean.FALSE, "Prolems updating employee with id. ", null);
 		}
-		return null;
-
 	}
 
 	@Override
-    public List<Employee> getReportees(Integer managerId) {
-        return employeeRepository.getEmployeeByManagerId(managerId);
-    }
-
+	public List<Employee> getReportees(Integer managerId) {
+		return employeeRepository.getEmployeeByManagerId(managerId);
+	}
 
 }

@@ -16,7 +16,7 @@ public interface EmployeeService {
 
     CustomResponse<Employee> deleteEmployee(Integer id);
 
-    CustomResponse<Employee> updateEmployee(Integer id, Employee employee);
+    CustomResponse<Employee> updateEmployee(Integer id, Employee employee, List<Employee> employees);
 
     CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee);
 

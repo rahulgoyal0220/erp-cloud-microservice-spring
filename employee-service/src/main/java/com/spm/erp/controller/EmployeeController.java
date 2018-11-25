@@ -62,25 +62,26 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Void> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
-        try {
-            service.updateEmployee(id, employee);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    private ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
+       
+    	CustomResponse response =  service.updateEmployee(id, employee, service.getAllEmployee());
+    	if (response.getSuccess()) {
+            return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+        }	
     }
 
     @PutMapping("/{id}/changePassword")
-    private ResponseEntity<Void> changePassword(@PathVariable Integer id, @RequestBody Employee employee) {
-        try {
-            service.updateEmployeePassword(id, employee);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
+    private ResponseEntity<?> changePassword(@PathVariable Integer id, @RequestBody Employee employee) {
+      
+    	CustomResponse response = service.updateEmployeePassword(id, employee);
+     	if (response.getSuccess()) {
+            return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+        }	
     }
-
 
     @DeleteMapping("/{id}")
     private ResponseEntity<?> deleteEmployee(@PathVariable Integer id) {

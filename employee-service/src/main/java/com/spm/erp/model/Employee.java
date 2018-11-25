@@ -40,7 +40,6 @@ public class Employee implements Serializable {
     @Column(name = "address_id")
     private Integer addressId;
 
-    @NaturalId
     @NotBlank
     @Size(max = 40)
     @Email
