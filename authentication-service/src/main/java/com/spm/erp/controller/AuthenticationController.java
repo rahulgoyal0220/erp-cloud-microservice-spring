@@ -37,4 +37,9 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
     }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> signOut() {
+        return ResponseEntity.status(HttpStatus.OK).body("");
+    }
 }

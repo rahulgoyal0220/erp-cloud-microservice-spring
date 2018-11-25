@@ -44,6 +44,17 @@ public class EmployeeController {
         }
     }
 
+    @GetMapping("/{id}/reportee")
+    public ResponseEntity<?> getEmployeeReportee(@PathVariable Integer id) {
+        CustomResponse response = service.getEmployeeDetail(id);
+
+        if (response.getSuccess()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+    }
+
     @PostMapping
     private ResponseEntity<Void> addEmployee(@Valid @RequestBody Employee employee) {
         try {

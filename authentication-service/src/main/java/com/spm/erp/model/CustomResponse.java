@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -16,4 +19,6 @@ public class CustomResponse {
     private Boolean success;
 
     private String message;
+
+    private List<String> roles;
 }
