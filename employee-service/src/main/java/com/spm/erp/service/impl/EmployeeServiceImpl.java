@@ -81,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee) {
+	 public CustomResponse<Employee> updateEmployeePassword(Integer id, Employee employee) {
 		try {
 			Employee emp = employeeRepository.findById(id).get();
 			emp = Util.updateProperties(emp, employee);
