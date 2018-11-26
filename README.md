@@ -8,3 +8,12 @@ Start the modules in the below sequence:
 3. authentication-service - (Authentication module)
 4. employee-service - (Employee- module)
 5. gateway-service - (API -gateway that will be used to route the request)
+
+
+Test-Data
+
+INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_HR');
+INSERT INTO roles(name) VALUES('ROLE_MANAGER');
+
+
