@@ -17,3 +17,15 @@ INSERT INTO roles(name) VALUES('ROLE_HR');
 INSERT INTO roles(name) VALUES('ROLE_MANAGER');
 
 
+Employee Json
+{
+        "firstName": "Rahul",
+        "lastName": "hello",
+        "dob": "1998-11-21T05:00:00.000+0000",
+        "gender": "F",
+        "addressId": 2,
+        "email": "rahulgoyal0118@gmail.com",
+        "mobile": "7654890",
+        "departmentId": 2,
+        "jobId": 2
+ }
