@@ -1,9 +1,9 @@
 package com.spm.erp.controller;
 
+import com.spm.erp.client.EmployeeClient;
 import com.spm.erp.model.CustomResponse;
 import com.spm.erp.model.Employee;
 import com.spm.erp.model.Payroll;
-import com.spm.erp.service.EmployeeService;
 import com.spm.erp.service.PayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class PayrollController {
 	PayrollService payrollService;
 
 	@Autowired
-	EmployeeService employeeService;
+	EmployeeClient employeeClient;
 
 	@GetMapping("/payroll")
 	public ResponseEntity<?> getAllPayrolls() {
@@ -73,8 +73,8 @@ public class PayrollController {
 		if (!payroll.isPresent()) {
 			return ResponseEntity.ok(new CustomResponse(Boolean.FALSE, "No Payroll found with id:" + id));
 		}
-		Employee employee = employeeService.fetchEmployeeById(payroll.get().getEmployeeId());
-		byte[] bytes = payrollService.generatePayrollReport(payroll.get(), employee);
+		ResponseEntity<CustomResponse<Employee>> employee = employeeClient.getEmployeeById(payroll.get().getEmployeeId());
+		byte[] bytes = payrollService.generatePayrollReport(payroll.get(), employee.getBody().getResponse());
 
 		return ResponseEntity.ok().header("Content-Type", "application/pdf; charset=UTF-8")
 				.header("Content-Disposition", "inline; filename=\"Payroll_" + payroll.get().getId() + ".pdf\"")

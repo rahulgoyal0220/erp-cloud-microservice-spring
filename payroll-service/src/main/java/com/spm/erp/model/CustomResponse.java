@@ -6,14 +6,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Component
-public class CustomResponse {
+public class CustomResponse<T> {
+	
+	 public CustomResponse(boolean b, String string) {
+			success = b;
+			message = string;
+		}
 
     private Boolean success;
 
     private String message;
+    
+    @JsonIgnoreProperties
+    private T response;
 }
+
+
+
