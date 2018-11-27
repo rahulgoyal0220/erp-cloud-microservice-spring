@@ -2,6 +2,8 @@ package com.spm.erp.controller;
 
 import com.spm.erp.model.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +31,8 @@ public class EmployeeController {
     EmployeeService service;
 
     @GetMapping
-    public List<Employee> getEmployeeList() {
-        return service.getAllEmployee();
+    public Page<Employee> getEmployeeList(Pageable pageable) {
+        return service.getAllEmployee(pageable);
     }
 
     @GetMapping("/{id}")
@@ -51,7 +53,7 @@ public class EmployeeController {
 
     @PostMapping
     private ResponseEntity<?> addEmployee(@Valid @RequestBody Employee employee) {
-        CustomResponse response = service.create(employee, service.getAllEmployee());
+        CustomResponse response = service.create(employee);
         if (response.getSuccess()) {
             return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
         } else {
@@ -62,7 +64,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     private ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
 
-        CustomResponse response = service.updateEmployee(id, employee, service.getAllEmployee());
+        CustomResponse response = service.updateEmployee(id, employee);
         if (response.getSuccess()) {
             return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
         } else {
