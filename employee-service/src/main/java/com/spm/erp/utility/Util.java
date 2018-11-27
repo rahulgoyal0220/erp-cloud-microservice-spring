@@ -39,7 +39,7 @@ public class Util {
 
 	public static void sendEmail(Employee employee, String subject, String body) {
 		String from = "himanshumahajan38@gmail.com";
-		String pass = "Hello!";
+		String pass = "Hello12!";
 		String[] to = { employee.getEmail(), "himanshumahajan38@gmail.com" }; // list of recipient email addresses
 	/*	String subject = "Account created";
 		String body = "Hello " + employee.getFirstName()
