@@ -36,12 +36,10 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getEmployeeDetail(@PathVariable Integer id) {
         CustomResponse response = service.getEmployeeDetail(id);
-
-        System.out.println("---------------------------"+response.getMessage());
         if (response.getSuccess()) {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(response.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
     }
 
@@ -50,47 +48,47 @@ public class EmployeeController {
         List<Employee> response = service.getReportees(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    
+
     @PostMapping
-    private ResponseEntity<?> addEmployee(@Valid @RequestBody Employee employee) {   
-    CustomResponse response =  service.create(employee, service.getAllEmployee());
-    if (response.getSuccess()) {
-        return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
-    } else {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
-    }
+    private ResponseEntity<?> addEmployee(@Valid @RequestBody Employee employee) {
+        CustomResponse response = service.create(employee, service.getAllEmployee());
+        if (response.getSuccess()) {
+            return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @PutMapping("/{id}")
     private ResponseEntity<?> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
-       
-    	CustomResponse response =  service.updateEmployee(id, employee, service.getAllEmployee());
-    	if (response.getSuccess()) {
+
+        CustomResponse response = service.updateEmployee(id, employee, service.getAllEmployee());
+        if (response.getSuccess()) {
             return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
-        }	
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @PutMapping("/{id}/changePassword")
     private ResponseEntity<?> changePassword(@PathVariable Integer id, @RequestBody Employee employee) {
-      
-    	CustomResponse response = service.updateEmployeePassword(id, employee);
-     	if (response.getSuccess()) {
+
+        CustomResponse response = service.updateEmployeePassword(id, employee);
+        if (response.getSuccess()) {
             return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
-        }	
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @DeleteMapping("/{id}")
     private ResponseEntity<?> deleteEmployee(@PathVariable Integer id) {
-        
-    	CustomResponse response  = service.deleteEmployee(id);       
-    	if (response.getSuccess()) {
+
+        CustomResponse response = service.deleteEmployee(id);
+        if (response.getSuccess()) {
             return ResponseEntity.status(HttpStatus.OK).body(response.getMessage());
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }

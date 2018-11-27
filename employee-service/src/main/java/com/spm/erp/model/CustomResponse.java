@@ -23,6 +23,7 @@ public class CustomResponse<T> {
 
     private String message;
 
+    @JsonIgnoreProperties
     private T response;
     
    

@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 							+ employee.getPassword());
 			return new CustomResponse(Boolean.TRUE, "Employee saved successfully.", employee);
 		} else {
-			return new CustomResponse(Boolean.FALSE, "Some trouble adding the employee. Duplicate Email.", employee);
+			return new CustomResponse(Boolean.FALSE, "Some trouble adding the employee. Duplicate Email.", null);
 		}
 
 	}
