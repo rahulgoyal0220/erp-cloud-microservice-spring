@@ -4,6 +4,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import com.spm.erp.model.Employee;
+import com.spm.erp.model.Role;
+
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,13 +22,14 @@ public class Util {
 
 		BeanWrapper oldObj = new BeanWrapperImpl(oldEmp);
 		BeanWrapper newObj = new BeanWrapperImpl(newEmp);
-
+        Set<Role> roles = newEmp.getRoles();
 		for (Field property : newEmp.getClass().getDeclaredFields()) {
 			Object emp = oldObj.getPropertyValue(property.getName());
-			if (emp != null) {
+			if (emp != null ) {
 				newObj.setPropertyValue(property.getName(), emp);
 			}
 		}
+		newEmp.setRoles(roles);
 		return newEmp;
 	}
 
