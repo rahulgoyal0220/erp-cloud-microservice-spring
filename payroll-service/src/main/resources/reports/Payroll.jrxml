@@ -85,38 +85,35 @@
 	<columnHeader>
 		<band height="257" splitType="Stretch">
 			<staticText>
-				<reportElement x="40" y="19" width="100" height="20" uuid="40d8cf60-680d-49aa-952a-fe939ca81b9d"/>
+				<reportElement x="10" y="19" width="70" height="20" uuid="40d8cf60-680d-49aa-952a-fe939ca81b9d"/>
 				<text><![CDATA[Employee ID:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="163" y="19" width="100" height="19" uuid="80538613-9a6c-428f-a526-051dfe9c1ab7"/>
+				<reportElement x="100" y="20" width="180" height="19" uuid="80538613-9a6c-428f-a526-051dfe9c1ab7"/>
 				<textFieldExpression><![CDATA[$F{employeeId}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="40" y="49" width="100" height="20" uuid="1512e9fe-0c70-48ad-b9c3-9990b17c2a1f"/>
+				<reportElement x="10" y="49" width="70" height="20" uuid="1512e9fe-0c70-48ad-b9c3-9990b17c2a1f"/>
 				<text><![CDATA[First Name:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="163" y="50" width="100" height="19" uuid="1316637c-365c-4f46-965f-74aeaa99c584"/>
+				<reportElement x="100" y="50" width="180" height="19" uuid="1316637c-365c-4f46-965f-74aeaa99c584"/>
 				<textFieldExpression><![CDATA[$F{employeefirstName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="163" y="80" width="100" height="19" uuid="6ca85b99-078d-445a-9c78-21004a989a97"/>
+				<reportElement x="100" y="80" width="180" height="19" uuid="6ca85b99-078d-445a-9c78-21004a989a97"/>
 				<textFieldExpression><![CDATA[$F{employeelastName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="40" y="80" width="100" height="20" uuid="f863200e-720f-4687-9b98-e0e7c3bc1663"/>
+				<reportElement x="10" y="79" width="70" height="20" uuid="f863200e-720f-4687-9b98-e0e7c3bc1663"/>
 				<text><![CDATA[Last Name:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="40" y="110" width="100" height="20" uuid="66b52a41-55a9-4210-8b61-f910f8bfedff"/>
+				<reportElement x="10" y="109" width="70" height="20" uuid="66b52a41-55a9-4210-8b61-f910f8bfedff"/>
 				<text><![CDATA[Email:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="163" y="110" width="157" height="19" uuid="eb8057d3-bc97-45e8-ad65-24fd60a2b54e"/>
-				<textElement>
-					<font size="15"/>
-				</textElement>
+				<reportElement x="100" y="110" width="180" height="19" uuid="eb8057d3-bc97-45e8-ad65-24fd60a2b54e"/>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<staticText>
