@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
 public class Job{
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
     @NotBlank
